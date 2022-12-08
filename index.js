@@ -2,10 +2,12 @@ const Logging = require("./logging");
 const Connection = require("./connection");
 const {WebSocketServer} = require("ws");
 const UUID = require("node-uuid");
+const Message = require("./message");
 
 const wss = new WebSocketServer({port: 8088});
 
 const Connections = [];
+const Messages = [];
 wss.on("connection", ws => {
 
     // Accepting connection.
@@ -16,7 +18,16 @@ wss.on("connection", ws => {
     }
     const uuid = UUID().v4();
     Connections.push(new Connection(uuid, ws));
-    Logging.logMessage(`${uuid}: connection established.`);
+    Logging.logMessage(`${uuid} | Connection established.`);
+
+    // Messages
+    ws.on("message", data => {
+        try {
+            // to-do
+        } catch (e) {
+            Logging.logMessage(`${uuid} | Error while receiving message: ${e.message}`);
+        }
+    });
 
     // Disconnections.
     ws.on("close", () => {
