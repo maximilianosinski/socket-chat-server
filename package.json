@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/maximilianosinski/socket-chat-server#readme",
   "dependencies": {
-    "node-uuid": "^1.4.8",
+    "uuid": "^9.0.0",
     "ws": "^8.11.0"
   }
 }

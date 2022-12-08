@@ -1,10 +1,10 @@
 const Logging = require("./logging");
 const Connection = require("./connection");
-const {WebSocketServer} = require("ws");
-const UUID = require("node-uuid");
+const UUID = require('uuid');
 const Message = require("./message");
+const WebSocket = require("ws");
 
-const wss = new WebSocketServer({port: 8088});
+const wss = new WebSocket.WebSocketServer({port: 8080});
 
 const Connections = [];
 const Messages = [];
@@ -16,7 +16,7 @@ wss.on("connection", ws => {
     if(index > -1) {
         Connections.splice(index, 1);
     }
-    const uuid = UUID().v4();
+    const uuid = UUID.v4();
     Connections.push(new Connection(uuid, ws));
     Logging.logMessage(`${uuid} | Connection established.`);
 
@@ -28,7 +28,7 @@ wss.on("connection", ws => {
 
             // Sending Message
             if(message["header"]["type"] === "SendMessage") {
-                const messageUuid = UUID().v4();
+                const messageUuid = UUID.v4();
                 const receiver = message["header"]["receiver"];
                 const contentType = message["header"]["contentType"];
                 const content = message["content"];
@@ -38,7 +38,7 @@ wss.on("connection", ws => {
                     Logging.logMessage(`${uuid} | Transfering message (${messageUuid}) to ${receiver}.`);
                     Connections[index].ws.send(JSON.stringify({
                         header: {
-                            type: "ReceiveMessage",
+                            type: "ReceiveMessage"
                         },
                         message: messageUuid
                     }));
@@ -62,7 +62,7 @@ wss.on("connection", ws => {
 
     // Disconnections.
     ws.on("close", () => {
-        Logging.logMessage(`${uuid}: disconnected.`);
+        Logging.logMessage(`${uuid} | disconnected.`);
         const index = Connections.findIndex(c => c.uuid === uuid);
         if(index > -1) {
             Connections.splice(index, 1);
