@@ -1,0 +1,27 @@
+{
+  "name": "socket-chat-server",
+  "version": "1.0.0",
+  "description": "Socket Chat Server application.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maximilianosinski/socket-chat-server.git"
+  },
+  "keywords": [
+    "socket-chat",
+    "server",
+    "websocket"
+  ],
+  "author": "Maximilian Osinski",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/maximilianosinski/socket-chat-server/issues"
+  },
+  "homepage": "https://github.com/maximilianosinski/socket-chat-server#readme",
+  "dependencies": {
+    "ws": "^8.11.0"
+  }
+}
